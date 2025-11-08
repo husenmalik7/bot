@@ -1,0 +1,20 @@
+name: Green Bot
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # jalan tiap hari jam 00:00 UTC
+  workflow_dispatch:
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Commit daily
+        run: |
+          echo "$(date)" >> log.txt
+          git config --global user.name "Husen"
+          git config --global user.email "husenmalik7@gmail.com"
+          git add log.txt
+          git commit -m "Auto commit: $(date)"
+          git push
